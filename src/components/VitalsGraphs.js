@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; 
 import { Paper, Typography, Box, Chip } from '@mui/material';
 import {
   LineChart,
@@ -6,24 +6,14 @@ import {
   ResponsiveContainer,
   AreaChart,
   Area,
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
-  Tooltip,
 } from 'recharts';
 
 const heartbeatData = [
   { bpm: 0 }, { bpm: 30 }, { bpm: 10 }, { bpm: 80 }, { bpm: 0 },
   { bpm: 30 }, { bpm: 10 }, { bpm: 90 }, { bpm: 0 }, { bpm: 20 },
   { bpm: 10 }, { bpm: 80 }, { bpm: 0 },
-];
-
-const bloodStatusData = [
-  { time: '8 AM', systolic: 120, diastolic: 80 },
-  { time: '10 AM', systolic: 118, diastolic: 82 },
-  { time: '12 PM', systolic: 122, diastolic: 81 },
-  { time: '2 PM', systolic: 119, diastolic: 79 },
 ];
 
 const glucoseData = [
@@ -34,26 +24,19 @@ const glucoseData = [
   { time: '4 PM', level: 235 },
 ];
 
-const bloodCountData = [
-  { name: 'WBC', count: 80 },
-  { name: 'RBC', count: 85 },
-  { name: 'Platelets', count: 90 },
-];
-
 const VitalsGraphs = () => (
   <Paper
     sx={{
       width: '100%',
-      maxWidth: 'none',
       p: 3,
-      px: 4,
+      px: 6,
       borderRadius: 3,
       backgroundColor: '#fff',
       boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
     }}
   >
-    <Box mb={5}>
-      <Box display="flex" alignItems="center" gap={1} mb={1.5}>
+    <Box mb={4}>
+      <Box display="flex" alignItems="center" gap={1} mb={0.5}>
         <Box
           sx={{
             width: 28,
@@ -66,7 +49,7 @@ const VitalsGraphs = () => (
           Heartbeat
         </Typography>
         <Typography fontSize={22} fontWeight={800} ml={1}>
-          83 <Typography component="span" fontSize={14} fontWeight={500}>bpm</Typography>
+          83 <Box component="span" fontSize={14} fontWeight={500} display="inline">bpm</Box>
         </Typography>
       </Box>
       <Box sx={{ height: 100 }}>
@@ -84,87 +67,126 @@ const VitalsGraphs = () => (
       </Box>
     </Box>
 
-    <Box display="grid" gridTemplateColumns="1fr 1fr" columnGap={6} mb={5}>
+    <Box display="grid" gridTemplateColumns="1fr 1fr" columnGap={10} mb={4}>
       <Box>
-        <Typography fontSize={16} fontWeight={700} mb={1.5}>
+        <Typography fontSize={16} fontWeight={700} mb={0.5}>
           Blood status
         </Typography>
-        <Box sx={{ height: 100 }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={bloodStatusData} barCategoryGap={12}>
-              <Tooltip />
-              <Bar dataKey="systolic" fill="#0aa4f4" barSize={8} radius={[4, 4, 0, 0]} />
-              <Bar dataKey="diastolic" fill="#d2f2fc" barSize={8} radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+
+        <Box
+          sx={{
+            height: 100,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            backgroundColor: '#f9f9f9',
+            borderRadius: 2,
+            px: 2,
+          }}
+        >
+          {[...Array(12)].map((_, i) => (
+            <Box
+              key={i}
+              sx={{
+                width: 4,
+                height: i === 10 ? 80 : i === 11 ? 60 : 50,
+                backgroundColor: i === 10 || i === 11 ? '#0aa4f4' : '#d3d3d3',
+                borderRadius: 1,
+              }}
+            />
+          ))}
         </Box>
-        <Typography fontWeight={700} fontSize={20} mt={-0.5}>
-          120/80 <Typography component="span" fontSize={14} color="gray">mmHg</Typography>
+
+        <Typography fontWeight={700} fontSize={20} mt={0.8}>
+          120/80 <Box component="span" fontSize={14} color="gray" display="inline">mmHg</Box>
         </Typography>
       </Box>
 
       <Box>
-        <Typography fontSize={16} fontWeight={700} mb={1.5}>
+        <Typography fontSize={16} fontWeight={700} mb={0.5}>
           Glucose Level
         </Typography>
-        <Box sx={{ height: 100 }}>
+        <Typography fontSize={22} fontWeight={800} mb={0.2}>
+          230/<Box component="span" fontSize={14} fontWeight={500} display="inline">ml</Box>
+        </Typography>
+        <Box sx={{ height: 100, position: 'relative' }}>
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={glucoseData}>
               <defs>
-                <linearGradient id="glucoseGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#0aa4f4" stopOpacity={0.4} />
-                  <stop offset="100%" stopColor="#0aa4f4" stopOpacity={0} />
+                <linearGradient id="sharpArea" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#0aa4f4" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#0aa4f4" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <Tooltip />
               <XAxis dataKey="time" hide />
               <YAxis hide />
               <Area
-                type="monotone"
+                type="linear"
                 dataKey="level"
                 stroke="#0aa4f4"
-                fill="url(#glucoseGradient)"
+                fill="url(#sharpArea)"
                 strokeWidth={2}
+                dot={false}
               />
             </AreaChart>
           </ResponsiveContainer>
-        </Box>
-        <Box display="flex" justifyContent="flex-end">
-          <Chip
-            label="230/ml"
-            size="small"
+
+          <Box
             sx={{
-              backgroundColor: '#e6f7ff',
-              color: '#0aa4f4',
-              fontWeight: 600,
+              position: 'absolute',
+              right: 6,
+              top: 12,
+              backgroundColor: '#0aa4f4',
+              color: '#fff',
               fontSize: 12,
+              fontWeight: 600,
+              px: 1.5,
+              py: 0.2,
+              borderRadius: 10,
+              height: 20,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
-          />
+          >
+            230/ml
+          </Box>
         </Box>
       </Box>
     </Box>
 
     <Box>
-      <Typography fontSize={16} fontWeight={700} mb={1.5}>
+      <Typography fontSize={16} fontWeight={700} mb={0.5}>
         Blood Count
       </Typography>
       <Box sx={{ height: 120 }}>
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={bloodCountData}>
+          <AreaChart
+            data={[
+              { name: 'WBC', count: 70 },
+              { name: 'WBC', count: 80 },
+              { name: 'WBC', count: 75 },
+              { name: 'RBC', count: 85 },
+              { name: 'RBC', count: 90 },
+              { name: 'RBC', count: 88 },
+              { name: 'Platelets', count: 92 },
+              { name: 'Platelets', count: 95 },
+              { name: 'Platelets', count: 90 },
+            ]}
+          >
             <defs>
-              <linearGradient id="countGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#0aa4f4" stopOpacity={0.4} />
-                <stop offset="95%" stopColor="#0aa4f4" stopOpacity={0} />
+              <linearGradient id="glucoseGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#0aa4f4" stopOpacity={0.4} />
+                <stop offset="100%" stopColor="#0aa4f4" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
+            <XAxis dataKey="name" hide />
+            <YAxis hide />
             <Area
-              type="monotone"
+              type="natural"
               dataKey="count"
               stroke="#0aa4f4"
-              fill="url(#countGradient)"
+              fill="url(#glucoseGradient)"
               strokeWidth={2}
             />
           </AreaChart>

@@ -20,11 +20,11 @@ const EmployeeDetails = () => {
           flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-between',
           alignItems: { xs: 'flex-start', md: 'center' },
-          gap: 2,
+          gap: 3,
         }}
       >
         <Box flex={1}>
-          <Box display="flex" alignItems="center" gap={1.5}>
+          <Box display="flex" alignItems="center" gap={2}>
             <Avatar
               src="https://randomuser.me/api/portraits/men/41.jpg"
               sx={{ width: 56, height: 56 }}
@@ -78,8 +78,8 @@ const EmployeeDetails = () => {
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: 1,
-            flex: '0 0 260px',
+            gap: 1.2,
+            flex: '0 0 300px',
             justifyContent: 'flex-end',
           }}
         >

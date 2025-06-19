@@ -9,7 +9,7 @@ const StartExamButton = () => {
         color="primary"
         sx={{
           px: 10,              
-          py: 3,             
+          py: 2,             
           fontSize: 20,       
           width: '100%',      
           maxWidth: 600 ,      

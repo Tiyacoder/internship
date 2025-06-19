@@ -25,17 +25,15 @@ const Consultations = () => {
         boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
       }}
     >
-      {/* Header */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-        <Typography fontWeight={600} fontSize={16}>
-          Consultations
+        <Typography fontWeight={500} fontSize={14}>
+          Medical Examination
         </Typography>
         <IconButton size="small" sx={{ p: 0.5 }}>
           <OpenInNewIcon sx={{ fontSize: 16 }} />
         </IconButton>
       </Box>
 
-      {/* Consultation List */}
       <List disablePadding>
         {[1, 2, 3, 4].map((_, index) => (
           <ListItem
@@ -67,7 +65,7 @@ const Consultations = () => {
                     Date
                   </Typography>
                   <Typography fontSize={16} color="text.secondary">
-                    Time
+                    PME
                   </Typography>
                 </Box>
               }

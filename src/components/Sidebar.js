@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Drawer,
   List,
@@ -8,31 +8,21 @@ import {
   Typography,
   Divider,
   Box,
-  Collapse,
 } from '@mui/material';
 import {
-  ExpandLess,
-  ExpandMore,
   Home as HomeIcon,
-  Folder as ModulesIcon,
-  AssignmentTurnedIn as MyActionsIcon,
-  FormatListBulleted as AllActionsIcon,
+  ViewModule as ModulesIcon,
+  CheckBox as MyActionsIcon,
+  Assignment as AllActionsIcon,
   Description as ReportsIcon,
   Group as UsersIcon,
-  HelpOutline as HelpIcon,
+  MenuBook as HelpIcon,
+  LocationOn as LocationIcon,
 } from '@mui/icons-material';
 
 const drawerWidth = 240;
 
 const Sidebar = () => {
-  const [openModules, setOpenModules] = useState(false);
-  const [openActions, setOpenActions] = useState(false);
-  const [openOthers, setOpenOthers] = useState(false);
-
-  const toggleModules = () => setOpenModules(!openModules);
-  const toggleActions = () => setOpenActions(!openActions);
-  const toggleOthers = () => setOpenOthers(!openOthers);
-
   return (
     <Drawer
       variant="permanent"
@@ -42,86 +32,74 @@ const Sidebar = () => {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
-          backgroundColor: '#F6F6F6',
-          paddingTop: '20px',
+          backgroundColor: '#fff',
+          borderRight: 'none',
+          paddingTop: 3,
         },
       }}
     >
-      <Box sx={{ px: 2 }}>
-        <Typography variant="h6" fontWeight="bold" sx={{ mb: 1 }}>
-          System
-        </Typography>
-        <Divider sx={{ mb: 2 }} />
+      <Box px={2}>
+        <Box display="flex" alignItems="center" gap={1} mb={2}>
+          <Box sx={{ width: 48, height: 48, borderRadius: 2, bgcolor: '#1e1e1e' }} />
+          <Box>
+            <Typography fontWeight={700} fontSize={20}>System</Typography>
+            <Box display="flex" alignItems="center" fontSize={13} color="gray">
+              <LocationIcon sx={{ fontSize: 16, mr: 0.5 }} />
+              SiteMine2233
+            </Box>
+          </Box>
+        </Box>
 
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <HomeIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
+        <List disablePadding>
+          <ListItem>
+            <ListItemIcon><HomeIcon sx={{ color: '#b0b0b0' }} /></ListItemIcon>
+            <ListItemText primary="Home" primaryTypographyProps={{ fontSize: 15, color: '#b0b0b0' }} />
           </ListItem>
 
-          <ListItem button onClick={toggleModules}>
-            <ListItemIcon>
-              <ModulesIcon />
-            </ListItemIcon>
-            <ListItemText primary="Modules" />
-            {openModules ? <ExpandLess /> : <ExpandMore />}
+          <ListItem sx={{
+            bgcolor: '#00a9ee',
+            borderRadius: 2,
+            mx: 1,
+            mb: 2,
+            color: '#fff',
+          }}>
+            <ListItemIcon><ModulesIcon sx={{ color: '#fff' }} /></ListItemIcon>
+            <ListItemText primary="Modules" primaryTypographyProps={{ fontWeight: 600 }} />
           </ListItem>
 
-          <Collapse in={openModules} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+          <Divider sx={{ mx: 1 }} />
 
-              <ListItem button onClick={toggleActions} sx={{ pl: 4 }}>
-                <ListItemText primary="Actions" />
-                {openActions ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={openActions} timeout="auto" unmountOnExit>
-                <List disablePadding>
-                  <ListItem button sx={{ pl: 6 }}>
-                    <ListItemIcon>
-                      <MyActionsIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="My Actions" />
-                  </ListItem>
-                  <ListItem button sx={{ pl: 6 }}>
-                    <ListItemIcon>
-                      <AllActionsIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="All Actions" />
-                  </ListItem>
-                </List>
-              </Collapse>
+          <Typography fontWeight={600} fontSize={14} sx={{ px: 2, pt: 2, pb: 1 }} color="#444">
+            Actions
+          </Typography>
 
-             
-              <ListItem button onClick={toggleOthers} sx={{ pl: 4 }}>
-                <ListItemText primary="Others" />
-                {openOthers ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={openOthers} timeout="auto" unmountOnExit>
-                <List disablePadding>
-                  <ListItem button sx={{ pl: 6 }}>
-                    <ListItemIcon>
-                      <ReportsIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="All Reports" />
-                  </ListItem>
-                  <ListItem button sx={{ pl: 6 }}>
-                    <ListItemIcon>
-                      <UsersIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="User Management" />
-                  </ListItem>
-                  <ListItem button sx={{ pl: 6 }}>
-                    <ListItemIcon>
-                      <HelpIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Help Manual" />
-                  </ListItem>
-                </List>
-              </Collapse>
-            </List>
-          </Collapse>
+          <ListItem>
+            <ListItemIcon><MyActionsIcon sx={{ color: '#b0b0b0' }} /></ListItemIcon>
+            <ListItemText primary="My Actions" primaryTypographyProps={{ fontSize: 15, color: '#b0b0b0' }} />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon><AllActionsIcon sx={{ color: '#b0b0b0' }} /></ListItemIcon>
+            <ListItemText primary="All Actions" primaryTypographyProps={{ fontSize: 15, color: '#b0b0b0' }} />
+          </ListItem>
+
+          <Divider sx={{ mx: 1, mt: 2 }} />
+
+          <Typography fontWeight={600} fontSize={14} sx={{ px: 2, pt: 2, pb: 1 }} color="#444">
+            Others
+          </Typography>
+
+          <ListItem>
+            <ListItemIcon><ReportsIcon sx={{ color: '#b0b0b0' }} /></ListItemIcon>
+            <ListItemText primary="All Reports" primaryTypographyProps={{ fontSize: 15, color: '#b0b0b0' }} />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon><UsersIcon sx={{ color: '#b0b0b0' }} /></ListItemIcon>
+            <ListItemText primary="User Management" primaryTypographyProps={{ fontSize: 15, color: '#b0b0b0' }} />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon><HelpIcon sx={{ color: '#b0b0b0' }} /></ListItemIcon>
+            <ListItemText primary="Help Manual" primaryTypographyProps={{ fontSize: 15, color: '#b0b0b0' }} />
+          </ListItem>
         </List>
       </Box>
     </Drawer>
